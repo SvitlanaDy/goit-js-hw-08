@@ -12,29 +12,38 @@ fillTextField();
 form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input',throttle(onFormInput, 500));
 
+function onFormSubmit(event) {
+    event.preventDefault();
+    // console.log('Відправляємо форму');
+    // event.currentTarget.reset();
+    // localStorage.removeItem(STORAGE_KEY);
+    // console.log(formData);
+    if (email.value === "" || textarea.value === "") {
+        return alert("Please fill in all the fields!");
+      }
+        else {
+
+            console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+   
+            event.target.reset()
+           
+            localStorage.removeItem(STORAGE_KEY)
+        }
+}
+
 function onFormInput(evt){
     formData[evt.target.name] = evt.target.value;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
   console.log(evt.target.value);
 }
+
+
+
 function fillTextField(){
     const savedMessage = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    // if (savedMessage){
-    // textarea.value = savedMessage.message;
-    // email.value = savedMessage.email;
-    // }
-   
     if (savedMessage){
         form.message.value = formData.message || '';
         form.email.value = formData.email || '';  
     }
-  
 }
 
-function onFormSubmit(evt) {
-    evt.preventDefault();
-   
-    evt.target.reset();
-    localStorage.removeItem(STORAGE_KEY);
-    console.log(formData);
-}
