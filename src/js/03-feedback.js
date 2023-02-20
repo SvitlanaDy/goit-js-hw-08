@@ -28,6 +28,8 @@ function onFormSubmit(event) {
             event.target.reset()
            
             localStorage.removeItem(STORAGE_KEY)
+            formData.email = ''
+            formData.message = ''
 
         }
 }
